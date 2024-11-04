@@ -2,7 +2,7 @@ import sqlite3 from 'sqlite3';
 
  const connection = new sqlite3.Database("./data.db");
 
-connection.all("SELECT * FROM jugadores", (error, result) => {
+connection.all("SELECT DATE() AS fecha", (error, result) => {
     if (error) {
       throw console.log(error.message);
     }

@@ -10,8 +10,7 @@ const app = express();
 dotenv.config(); 
   // Carga variables de entorno desde .env
   const PORT = process.env.PORT;
-   
-    app.use(cors())
+   app.use( cors() )
     app.use(express.json())
 // Rutas de logueo
     app.use('/', routerLogin);

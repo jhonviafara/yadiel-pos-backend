@@ -34,13 +34,13 @@ routerLogin.post('/login', (req, res) => {
 
 // Ruta para registrar un nuevo usuario
 routerLogin.post('/register', async (req, res) => {
-    const { nombre, password } = req.body;
+    const { nombre, password,email } = req.body;
 
     try {
 
         // Insertar el nuevo usuario en la base de datos
-        const query = 'INSERT INTO usuarios (nombre, password) VALUES (?, ?)';
-        connection.run(query, [nombre,], (err) => {
+        const query = 'INSERT INTO usuarios (nombre, password,correo) VALUES (?, ?,?)';
+        connection.run(query, [nombre,password,email], (err) => {
             if (err) {
                 return res.status(500).json({ error: 'Error en el servidor' });
             }

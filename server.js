@@ -1,9 +1,9 @@
 import dotenv, { config } from 'dotenv';
 import express from 'express';
 import cors from 'cors'
-import authLogReg from './routes/auth.js';
 import  jugadoresRouter  from './routes/jugadores.routes.js';
 import entrenadoresRouter from './routes/entrenadores.routes.js';
+import routerLogin from './routes/auth.js';
 
 
 const app = express();
@@ -16,7 +16,7 @@ dotenv.config();
    app.use( cors() )
     app.use(express.json())
 // Rutas de logueo  
-    app.use('/auth', authLogReg);
+    app.use('/auth', routerLogin);
     app.use('/',jugadoresRouter);
     app.use('/',entrenadoresRouter)
 // Inicia el servidor

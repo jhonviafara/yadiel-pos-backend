@@ -25,25 +25,27 @@ export const registerUser = async(req,res)=>{
 
 };
 
-
+//logear un usuario existente
 export const loginUsuario =  async  (req, res) =>{
     const { nombre, password } = req.body;
+      
         connection.all(intentoLog, [nombre],   (err, row) => {
           if (err) {
-            return res.json({ error: "Error al buscar usuario" });
+            return res.status(500).json({ error: "Error al buscar usuario" });
           }
-          let usuario = row[0];
+            let usuario = row[0];
           if (!usuario) {
-            return res.json({ message: "Usuario no encontrado" });
+            return res.status(404).json({ message: "Usuario no encontrado" });
           } else {
             const match =  bcrypt.compareSync(password, usuario.password);
-            if (match) {
+            if (match) {              
               return res.status(200).json({
-                nombre: usuario.nombre,
+                message: 'Inicio de sesión exitoso',
+                nombre: usuario.nombre            
               })
               ;
             } else {
-              return res.json({ message: "Contraseña invalida" });
+              return res.status(401).json({ message: "Contraseña invalida" });
             }
           }
         });

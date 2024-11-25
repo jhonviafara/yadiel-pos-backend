@@ -2,8 +2,6 @@ import bcrypt from'bcrypt'
 import connection from '../config/db.js';
 import  {createUserQuery, intentoLog}  from '../models/userModel.js'; 
 
-
-
 //registrar un usuario
 export const registerUser = async(req,res)=>{
   const { nombre,password,email } = req.body;

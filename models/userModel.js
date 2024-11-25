@@ -12,3 +12,4 @@ FROM entrenadores ENT
 INNER JOIN categorias CAT ON ENT.id_categoria = CAT.id
 LEFT JOIN jugadores JU ON JU.id_categoria = CAT.id
 GROUP BY ENT.id, ENT.nombre, ENT.apellido, CAT.nombre;`
+export const consultaCategoria =`SELECT * from categorias`;

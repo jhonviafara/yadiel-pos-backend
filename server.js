@@ -1,29 +1,27 @@
-import dotenv, { config } from 'dotenv';
-import express from 'express';
-import cors from 'cors'
-import  jugadoresRouter  from './routes/jugadores.routes.js';
-import entrenadoresRouter from './routes/entrenadores.routes.js';
-import routerLogin from './routes/auth.js';
-import categoriaRouter from './routes/categoria.routes.js';
-
+import dotenv, { config } from "dotenv";
+import express from "express";
+import cors from "cors";
+import jugadoresRouter from "./routes/jugadores.routes.js";
+import entrenadoresRouter from "./routes/entrenadores.routes.js";
+import routerLogin from "./routes/auth.js";
+import categoriaRouter from "./routes/categoria.routes.js";
 
 const app = express();
-dotenv.config(); 
+dotenv.config();
 
+// variables de entorno desde .env
+const PORT = process.env.PORT;
 
-  // variables de entorno desde .env
-  const PORT = process.env.PORT;
-
-   app.use( cors() )
-    app.use(express.json())
-// Rutas de logueo  
-    app.use('/auth', routerLogin);
-    app.use('/',jugadoresRouter);
-    app.use('/',entrenadoresRouter)
-    app.use('/',categoriaRouter)
+app.use(cors());
+app.use(express.json());
+// Rutas de logueo
+app.use("/auth", routerLogin);
+app.use("/", jugadoresRouter);
+//app.use("/update", jugadoresRouter);    //crear rutas para actualizar los datos
+app.use("/", entrenadoresRouter);
+app.use("/", categoriaRouter);
 
 // Inicia el servidor
-    app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
- 

@@ -1,13 +1,12 @@
-import express from 'express';
-import {loginUsuario, registerUser} from '../controllers/authController.js';
+import express from "express";
+import { loginUsuario, registerUser } from "../controllers/authController.js";
 
 const routerLogin = express.Router();
- 
-//loguear usuario existente
-routerLogin.post('/login', loginUsuario);
 
+//loguear usuario existente
+routerLogin.post("/login", loginUsuario);
 
 // Ruta para registrar un nuevo usuario
-routerLogin.post('/register', registerUser );
+routerLogin.post("/register", registerUser);
 
 export default routerLogin;

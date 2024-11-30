@@ -48,7 +48,7 @@ export const loginUsuario = async (req, res) => {
     } else {
       const match = bcrypt.compareSync(password, usuario.password);
       if (match) {
-        console.log(usuario.id, usuario.rol_id);
+        const rolUser = usuario.rol_id; // saco el rol de usuario luego que este paso el proseso de validacin de usuario
         const token = jwt.sign(
           //generando el token con el metodo sing
           { id: usuario.id, rol: usuario.rol_id },
@@ -58,11 +58,11 @@ export const loginUsuario = async (req, res) => {
             algorithm: "HS256", //tipo de algoritmo usado para cifrar
           }
         );
-        console.log(token);
         return res.status(200).json({
+          // tengo que realizar destructuracion luego  en el front porque envio un objeto
           token,
+          rol: rolUser, // envio en las res el rol de usuario
           message: "Inicio de sesión exitoso",
-          nombre: usuario.nombre,
         });
       } else {
         return res.status(401).json({ message: "Contraseña invalida" });

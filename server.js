@@ -5,6 +5,7 @@ import jugadoresRouter from "./routes/jugadores.routes.js";
 import entrenadoresRouter from "./routes/entrenadores.routes.js";
 import routerLogin from "./routes/auth.js";
 import categoriaRouter from "./routes/categoria.routes.js";
+import cargarjugadoresRouter from "./routes/cargarJugador.js";
 
 const app = express();
 dotenv.config();
@@ -17,7 +18,7 @@ app.use(express.json());
 // Rutas de logueo
 app.use("/auth", routerLogin);
 app.use("/", jugadoresRouter);
-//app.use("/update", jugadoresRouter);    //crear rutas para actualizar los datos
+app.use("/", cargarjugadoresRouter); //crear rutas para actualizar los datos
 app.use("/", entrenadoresRouter);
 app.use("/", categoriaRouter);
 

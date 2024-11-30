@@ -1,3 +1,4 @@
+export const insertJugador = `INSERT INTO jugadores (nombre,apellido,edad,id_categoria,id_estado,contacto) VALUES(?,?,?,?,?,?)`;
 export const createUserQuery =
   "INSERT INTO usuarios (nombre, password,correo,rol_id) VALUES (?, ?, ?, ?)";
 export const intentoLog = "SELECT * FROM usuarios WHERE nombre = ?  ";

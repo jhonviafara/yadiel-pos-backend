@@ -11,16 +11,16 @@ const app = express();
 dotenv.config();
 
 // variables de entorno desde .env
-const PORT = process.env.PORT;
+const PORT = process.env.PORT||3001;
 
 app.use(cors());
 app.use(express.json());
 // Rutas de logueo
 app.use("/auth", routerLogin);
-app.use("/", jugadoresRouter);
-app.use("/", cargarjugadoresRouter); //crear rutas para actualizar los datos
-app.use("/", entrenadoresRouter);
-app.use("/", categoriaRouter);
+app.use( jugadoresRouter);
+app.use( cargarjugadoresRouter); //crear rutas para actualizar los datos
+app.use( entrenadoresRouter);
+app.use( categoriaRouter);
 
 // Inicia el servidor
 app.listen(PORT, () => {

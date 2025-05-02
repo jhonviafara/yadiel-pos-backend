@@ -8,8 +8,8 @@ dotenv.config();
 
 //registrar un usuario
 export const registerUser = async (req, res) => {
-  const { nombre, password, email, rol } = req.body;
-  if (!nombre || !password || !email || !rol) {
+  const { nombre, email, password, rol ,comercioId } = req.body;
+  if (!nombre || !email || !password || !rol || !comercioId) {
     return res
       .status(400)
       .json({ error: " todos los campos son obligatorios" });
@@ -19,7 +19,7 @@ export const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     connection.run(
       createUserQuery,
-      [nombre, hashedPassword, email, rol],
+      [nombre,email,hashedPassword, rol, comercioId],
       (err) => {
         if (err) {
           return res
@@ -47,11 +47,11 @@ export const loginUsuario = async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado" });
     } else {
       const match = bcrypt.compareSync(password, usuario.password);
-      if (match) {
+      if (match ) {        
         const rolUser = usuario.rol_id; // saco el rol de usuario luego que este paso el proseso de validacin de usuario
-        const token = jwt.sign(
+       const token = jwt.sign(
           //generando el token con el metodo sing
-          { id: usuario.id, rol: usuario.rol_id },
+          {  rol: usuario.rol_id ,id:usuario.id,comercio:usuario.comercio_id},
           process.env.SECRET_KEY,
           {
             expiresIn: process.env.JWT_EXPIRATION || "1h",
@@ -59,9 +59,10 @@ export const loginUsuario = async (req, res) => {
           }
         );
         return res.status(200).json({
-          // tengo que realizar destructuracion luego  en el front porque envio un objeto
           token,
-          rol: rolUser, // envio en las res el rol de usuario
+          rol: rolUser,
+          id: usuario.id , // envio el id de usuario
+          idcomercio: usuario.comercio_id, // envio en las res el rol de usuario
           message: "Inicio de sesión exitoso",
         });
       } else {

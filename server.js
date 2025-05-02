@@ -1,11 +1,10 @@
 import dotenv, { config } from "dotenv";
 import express from "express";
 import cors from "cors";
-import jugadoresRouter from "./routes/jugadores.routes.js";
-import entrenadoresRouter from "./routes/entrenadores.routes.js";
 import routerLogin from "./routes/auth.js";
-import categoriaRouter from "./routes/categoria.routes.js";
-import cargarjugadoresRouter from "./routes/cargarJugador.js";
+import routerHistorial from "./routes/get-historial-routes.js";
+import productosRouter from "./routes/productos.routes.js";
+import Ventarouter from "./routes/pos-venta.js";
 
 const app = express();
 dotenv.config();
@@ -17,10 +16,10 @@ app.use(cors());
 app.use(express.json());
 // Rutas de logueo
 app.use("/auth", routerLogin);
-app.use( jugadoresRouter);
-app.use( cargarjugadoresRouter); //crear rutas para actualizar los datos
-app.use( entrenadoresRouter);
-app.use( categoriaRouter);
+app.use("/historial-ventas",routerHistorial );
+//app.use("/iniciar-ventas",registrarVenta );
+app.use("/ventas", Ventarouter);
+app.use("/productos", productosRouter);
 
 // Inicia el servidor
 app.listen(PORT, () => {

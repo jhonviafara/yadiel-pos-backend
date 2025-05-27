@@ -111,6 +111,20 @@ CREATE TABLE IF NOT EXISTS sesiones (
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS caja_movimientos (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  fecha   DATETIME DEFAULT CURRENT_TIMESTAMP,
+  tipo         TEXT NOT NULL CHECK (tipo IN ('ingreso', 'egreso')),
+  motivo       TEXT, -- Ej: "venta", "cambio", "apertura de caja"
+  metodo_pago  TEXT CHECK (metodo_pago IN ('efectivo', 'tarjeta', 'transferencia', 'mp', 'otro')),
+  monto        REAL NOT NULL CHECK (monto >= 0),
+  venta_id     INTEGER,
+  usuario_id   INTEGER, -- Opcional: quién realizó el movimiento
+  FOREIGN KEY (venta_id)  REFERENCES ventas(id)   ON DELETE SET NULL,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL
+);
+
+
 -- Auditoría de acciones (control total)
 CREATE TABLE IF NOT EXISTS auditoria (
   id           INTEGER PRIMARY KEY AUTOINCREMENT,

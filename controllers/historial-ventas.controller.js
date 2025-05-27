@@ -14,6 +14,7 @@ export function getHistorialVentas(req, res) {
         return { ...rows, fecha, hora };    
     });
 
-    res.json(formateadas); // esto envía los datos al frontend en formato JSON
+    res.json(formateadas)
+    ; // esto envía los datos al frontend en formato JSON
   });
 }
